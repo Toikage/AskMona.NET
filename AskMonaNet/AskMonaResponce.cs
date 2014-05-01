@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace AskMonaNet
 {
-	public abstract class AAMReqObject
+	/// <summary>
+	/// AskMona APIから返されるステータス、エラー情報を格納します。
+	/// </summary>
+	public class AskMonaResponce
 	{
 		/// <summary>
 		/// 結果。1は成功、0は失敗を意味します。

@@ -7,18 +7,21 @@ using System.Threading.Tasks;
 namespace AskMonaNet
 {
 
-
-	public class TopicList : AAMReqObject
+	/// <summary>
+	/// トピック取得APIのレスポンス。
+	/// </summary>
+	public class TopicList : AskMonaResponce
 	{
 		/// <summary>
 		/// トピックオブジェクトのリスト。
 		/// </summary>
-		public Topic[] topics;
+		public TopicObject[] topics;
 	}
+
 	/// <summary>
-	/// トピックオブジェクト
+	/// トピックオブジェクト。
 	/// </summary>
-	public class Topic
+	public class TopicObject
 	{
 		/// <summary>
 		/// トピックの順位。レス取得APIでは返しません。
@@ -63,33 +66,35 @@ namespace AskMonaNet
 
 	}
 
-	public class TopicResponceList:AAMReqObject
+	/// <summary>
+	/// レス取得APIのレスポンス。
+	/// </summary>
+	public class ResponceList : AskMonaResponce
 	{
 		/// <summary>
 		/// 結果。1は成功、0は失敗、2は更新なしを意味します。
 		/// </summary>
 		public new int status;
-
 		/// <summary>
 		/// 更新された時刻（UNIX時刻）。
 		/// </summary>
 		public int updated;
-
 		/// <summary>
 		/// トピックオブジェクト。topic_detailに1を指定した場合のみ返却されます。
 		/// </summary>
-		public Topic topic;
-
+		public TopicObject topic;
 		/// <summary>
 		/// レスポンスオブジェクトのリスト。
 		/// </summary>
-		public TopicResponce[] responces;
+		public ResponceObject[] responces;
 
 	}
 
-	public class TopicResponce
+	/// <summary>
+	/// レスポンスオブジェクト。
+	/// </summary>
+	public class ResponceObject
 	{
-
 		/// <summary>
 		/// レス番号。
 		/// </summary>
