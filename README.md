@@ -12,4 +12,6 @@ http://askmona.org/
 - .NET Framework 4.5
 - C# 5.0
 
+[AskMonaNet Wiki](https://github.com/AtKey/AskMonaNet/wiki)
+
 Written In Japanese.
