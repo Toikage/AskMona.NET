@@ -9,7 +9,7 @@ namespace AskMonaNet
 	/// <summary>
 	/// ユーザープロフィール情報を含んだレスポンスです。
 	/// </summary>
-	public class UserProfileResponce : AskMonaResponce
+	public class UserProfileResponse : AskMonaResponse
 	{
 		/// <summary>
 		/// ユーザーの名前。

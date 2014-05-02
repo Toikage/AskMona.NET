@@ -10,7 +10,7 @@ namespace AskMonaNet
 	/// <summary>
 	/// トピックオブジェクオのリストを含んだレスポンスです。
 	/// </summary>
-	public class TopicListResponce : AskMonaResponce
+	public class TopicListResponse : AskMonaResponse
 	{
 		/// <summary>
 		/// トピックオブジェクトのリスト。
@@ -69,7 +69,7 @@ namespace AskMonaNet
 	/// <summary>
 	/// トピック情報、レスポンスオブジェクトのリストを含んだレスポンスです。
 	/// </summary>
-	public class ResponceListResponce : AskMonaResponce
+	public class ResponseListResponse : AskMonaResponse
 	{
 		/// <summary>
 		/// 結果。1は成功、0は失敗、2は更新なしを意味します。
@@ -86,13 +86,13 @@ namespace AskMonaNet
 		/// <summary>
 		/// レスポンスオブジェクトのリスト。
 		/// </summary>
-		public ResponceObject[] responces;
+		public ResponseObject[] Responses;
 	}
 
 	/// <summary>
 	/// レスポンスオブジェクト。
 	/// </summary>
-	public class ResponceObject
+	public class ResponseObject
 	{
 		/// <summary>
 		/// レス番号。
@@ -133,7 +133,7 @@ namespace AskMonaNet
 		/// <summary>
 		/// レス本文。
 		/// </summary>
-		public string responce;
+		public string Response;
 
 	}
 

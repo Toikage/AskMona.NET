@@ -43,15 +43,16 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountBalanceResponce.cs" />
+    <Compile Include="AccountBalanceResponse.cs" />
+    <Compile Include="SignResponse.cs" />
     <Compile Include="AskMonaUser.cs" />
-    <Compile Include="UserProfileResponce.cs" />
+    <Compile Include="UserProfileResponse.cs" />
     <Compile Include="AskMonaClient.Methods.cs" />
     <Compile Include="AskMonaClient.cs" />
-    <Compile Include="AskMonaResponce.cs" />
+    <Compile Include="AskMonaResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendAccountResponce.cs" />
-    <Compile Include="TopicResponce.cs" />
+    <Compile Include="SendAccountResponse.cs" />
+    <Compile Include="TopicResponse.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

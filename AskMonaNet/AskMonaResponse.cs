@@ -9,7 +9,7 @@ namespace AskMonaNet
 	/// <summary>
 	/// AskMona APIから返されるステータス、エラー情報を含んだレスポンスです。
 	/// </summary>
-	public class AskMonaResponce
+	public class AskMonaResponse
 	{
 		/// <summary>
 		/// 結果。1は成功、0は失敗を意味します。

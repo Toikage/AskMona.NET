@@ -16,14 +16,14 @@ namespace AskMonaNet
 	public class AskMonaUser
 	{
 		/// <summary>
-		/// ユーザーのID。
+		/// 利用者のユーザーID。
 		/// </summary>
-		public int u_id;
+		public int u_id { get; set; }
 
 		/// <summary>
-		/// 使用中のシークレットキー。
+		/// 認証キーの作成に使うシークレットキー。
 		/// </summary>
-		private string secretkey;
+		public string secretkey { get; set; }
 
 		private AskMonaUser(int u_id, string secretkey)
 		{
@@ -58,9 +58,8 @@ namespace AskMonaNet
 			return ak;
 		}
 
-
 		/// <summary>
-		/// アプリ連携ページから取得された認証コードからユーザー情報を作成します。
+		/// アプリ連携ページから取得された認証コードからユーザー情報のインスタンスを初期化します。
 		/// </summary>
 		/// <param name="authcode"></param>
 		/// <exception cref="FormatException"></exception>
@@ -84,13 +83,14 @@ namespace AskMonaNet
 		}
 
 		/// <summary>
-		/// 
+		/// ユーザーIDとシークレットキーからユーザー情報のインスタンスを初期化します。
 		/// </summary>
-		/// <param name="secretkey"></param>
+		/// <param name="u_id">ユーザーのID。</param>
+		/// <param name="secretkey">シークレットキー。</param>
 		/// <returns></returns>
-		static public AskMonaUser CreateFromSecretKey(string secretkey)
+		static public AskMonaUser Create(int u_id,string secretkey)
 		{
-			return new AskMonaUser(0, secretkey);
+			return new AskMonaUser(u_id, secretkey);
 		}
 
 	}

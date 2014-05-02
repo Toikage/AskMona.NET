@@ -9,7 +9,7 @@ namespace AskMonaNet
 	/// <summary>
 	/// 残高情報、個別勘定オブジェクトを含んだレスポンスです。
 	/// </summary>
-	public class AccountBalanceResponce : AskMonaResponce
+	public class AccountBalanceResponse : AskMonaResponse
 	{
 		/// <summary>
 		/// 現在のMONA残高（watanabe単位　1MONAは100,000,000watanabeです）。

@@ -33,15 +33,15 @@ namespace AskMonaNetTest
 			}
 
 			{
-				Console.WriteLine("トピックID 1(http://askmona.org/1)のレス、1から1000までを取得します。");
+				Console.WriteLine("トピックNo.1(http://askmona.org/1)のトピックのレスを1から1000までを取得します。");
 				Console.ReadKey(true);
-				var r = am.GetResponceList(1, 1, 1000, 1);
+				var r = am.GetResponseList(1, 1, 1000, 1);
 				if (r.status == 1)
 				{
 					Console.WriteLine(r.topic.title);
-					foreach (var item in r.responces)
+					foreach (var item in r.Responses)
 					{
-						Console.WriteLine("{0} {1} by {2}{3}", item.r_id, item.responce, item.u_name, item.u_dan);
+						Console.WriteLine("{0} {1} by {2}{3}", item.r_id, item.Response, item.u_name, item.u_dan);
 					}
 				}
 				else
