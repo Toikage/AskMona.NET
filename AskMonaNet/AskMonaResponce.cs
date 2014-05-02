@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AskMonaNet
 {
 	/// <summary>
-	/// AskMona APIから返されるステータス、エラー情報を格納します。
+	/// AskMona APIから返されるステータス、エラー情報を含んだレスポンスです。
 	/// </summary>
 	public class AskMonaResponce
 	{

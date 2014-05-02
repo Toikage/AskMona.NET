@@ -8,9 +8,9 @@ namespace AskMonaNet
 {
 
 	/// <summary>
-	/// トピック取得APIのレスポンス。
+	/// トピックオブジェクオのリストを含んだレスポンスです。
 	/// </summary>
-	public class TopicList : AskMonaResponce
+	public class TopicListResponce : AskMonaResponce
 	{
 		/// <summary>
 		/// トピックオブジェクトのリスト。
@@ -67,9 +67,9 @@ namespace AskMonaNet
 	}
 
 	/// <summary>
-	/// レス取得APIのレスポンス。
+	/// トピック情報、レスポンスオブジェクトのリストを含んだレスポンスです。
 	/// </summary>
-	public class ResponceList : AskMonaResponce
+	public class ResponceListResponce : AskMonaResponce
 	{
 		/// <summary>
 		/// 結果。1は成功、0は失敗、2は更新なしを意味します。
@@ -87,7 +87,6 @@ namespace AskMonaNet
 		/// レスポンスオブジェクトのリスト。
 		/// </summary>
 		public ResponceObject[] responces;
-
 	}
 
 	/// <summary>
@@ -136,6 +135,45 @@ namespace AskMonaNet
 		/// </summary>
 		public string responce;
 
+	}
+
+
+	/// <summary>
+	/// トピック一覧の並べ替える条件を指定します。
+	/// </summary>
+	public enum TopicOrder
+	{
+		/// <summary>
+		/// 更新順
+		/// </summary>
+		updated,
+		/// <summary>
+		/// 作成順
+		/// </summary>
+		created,
+		/// <summary>
+		/// お気に入り順
+		/// </summary>
+		favorites,
+		/// <summary>
+		/// やり取りされたMONA順で並べ替えられます
+		/// </summary>
+		recieve
+	}
+
+	/// <summary>
+	/// お気に入りトピックリストの並べ替える条件を指定します。
+	/// </summary>
+	public enum FavoriteTopicOrder
+	{
+		/// <summary>
+		/// お気に入りに追加された時刻順。
+		/// </summary>
+		added,
+		/// <summary>
+		/// トピックが更新された順。
+		/// </summary>
+		updated
 	}
 
 }

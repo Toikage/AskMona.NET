@@ -13,7 +13,42 @@ namespace AskMonaNetTest
 		{
 			AskMonaClient am = new AskMonaClient(338, "A+sj/Q3CFpHfoY1TrjliTwJtjIzwTzZ9fiY+1cfWSoX0=");
 
-			/*
+			Console.Write("認証コード ->");
+
+			AskMonaUser user;
+
+			try
+			{
+				 user = AskMonaUser.CreateFromAuthCode(Console.ReadLine());
+			}
+			catch (FormatException e)
+			{
+				Console.WriteLine(e.Message);
+				return;
+			}
+
+			if (am.GetVerifyUser(user).status == 0) { Console.WriteLine("認証失敗。"); return; }
+
+			Console.WriteLine("認証成功！");
+			Console.WriteLine("お気に入りトピックを取得します。");
+			Console.ReadKey(true);
+
+			var favo = am.GetFavoriteTopicList(user);
+			if (favo.status == 1)
+			{
+				Console.WriteLine("お気に入りの{0}トピック一覧", favo.topics.Length);
+				foreach (var i in favo.topics)
+				{
+					Console.WriteLine(@"{0}({1}) {2}", i.title, i.count, i.t_id);
+				}
+			}
+			else
+			{
+				Console.WriteLine(favo.error);
+			}
+
+			return;
+
 			var t = am.GetTopicList(TopicOrder.updated);
 			if (t.status == 1)
 			{
@@ -28,7 +63,7 @@ namespace AskMonaNetTest
 				Console.WriteLine(t.error);
 			}
 
-			var r = am.GetTopicResponceList(537, 1, 1000, 1);
+			var r = am.GetResponceList(537, 1, 1000, 1);
 			if (r.status == 1)
 			{
 				Console.WriteLine(r.topic.title);
@@ -51,11 +86,8 @@ namespace AskMonaNetTest
 			else
 			{
 				Console.WriteLine(u.error);
-			}*/
+			}
 
-			/*var t = am.GetVerifyUser(AskMonaUser.CreateFromAuthCode(Console.ReadLine()));
-			Console.WriteLine(t.status);
-			Console.WriteLine(t.error);*/
 		}
 	}
 }

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace AskMonaNet
 {
 	/// <summary>
-	/// 残高オブジェクト
+	/// 残高情報、個別勘定オブジェクトを含んだレスポンスです。
 	/// </summary>
-	public class AccountBalance : AskMonaResponce
+	public class AccountBalanceResponce : AskMonaResponce
 	{
 		/// <summary>
 		/// 現在のMONA残高（watanabe単位　1MONAは100,000,000watanabeです）。
@@ -18,11 +18,11 @@ namespace AskMonaNet
 		/// <summary>
 		/// 個別勘定オブジェクト。detailに1を指定した場合のみ返却されます。
 		/// </summary>
-		public IndividualAccount[] accounts;
+		public IndividualAccount accounts;
 	}
 
 	/// <summary>
-	/// 個別勘定オブジェクト
+	/// 個別勘定オブジェクト。
 	/// </summary>
 	public class IndividualAccount
 	{

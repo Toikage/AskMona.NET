@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AskMonaNet
 {
+	/// <summary>
+	/// 残高情報を含んだレスポンスです。
+	/// </summary>
 	public class SendAccountResponce:AskMonaResponce
 	{
 		/// <summary>
