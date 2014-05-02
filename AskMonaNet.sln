@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskMonaNet", "AskMonaNet\AskMonaNet.csproj", "{C1E20435-E4CF-4AF9-824D-46BB2B8DB28B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskMonaNetTest", "AskMonaNetTest\AskMonaNetTest.csproj", "{B678E38A-649C-430B-A999-40DABF345EE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEST", "AskMonaNetTest\TEST.csproj", "{B678E38A-649C-430B-A999-40DABF345EE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
