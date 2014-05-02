@@ -1,13 +1,15 @@
-AskMonaNet
-==========
-Written In Japanese.
+#AskMonaNet
+AskMonaの[開発者向けAPI](http://askmona.org/developers)をC#で利用する為のライブラリです。
 
-AskMona
+Ask Mona(仮想通貨 Monacoinを基軸とした掲示板サイト)  
 http://askmona.org/
 
-AskMonaの以下のAPIの仕様通りにラップした物です。
-http://askmona.org/developers
+機能
+- 開発者向けAPIの利用
+- DateTimeとUnix時間の相互変換
 
+環境
+- .NET Framework 4.5
+- C# 5.0
 
-
-monacoin:MERefjYe7hunLPtg7AKy1AoSwxjYU6X8Zr
+Written In Japanese.
