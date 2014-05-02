@@ -11,10 +11,8 @@ namespace AskMonaNet
 {
 	public partial class AskMonaClient
 	{
-		static private string HttpCall(Uri uri)
+		static internal string HttpCall(Uri uri)
 		{
-
-
 			WebRequest request = WebRequest.Create(uri);
 
 			request.Method = WebRequestMethods.Http.Get;
@@ -27,7 +25,7 @@ namespace AskMonaNet
 		}
 
 
-		static private string HttpPost(Uri uri, string req)
+		static internal string HttpPost(Uri uri, string req)
 		{
 			byte[] data = Encoding.ASCII.GetBytes(req);
 
@@ -50,7 +48,7 @@ namespace AskMonaNet
 			}
 		}
 
-		private T Call<T>(string url, Dictionary<string, string> prm)
+		internal T Call<T>(string url, Dictionary<string, string> prm)
 		{
 			UriBuilder ub = new UriBuilder(url);
 			{
@@ -62,14 +60,14 @@ namespace AskMonaNet
 					else isFirst = false;
 					sb.Append(item.Key);
 					sb.Append('=');
-					sb.Append(item.Value);
+					sb.Append(WebUtility.UrlEncode(item.Value));
 				}
 				ub.Query = sb.ToString();
 			}
 			return JsonConvert.DeserializeObject<T>(HttpCall(ub.Uri));
 		}
 
-		private T Post<T>(string url, Dictionary<string, string> prm)
+		internal T Post<T>(string url, Dictionary<string, string> prm)
 		{
 			string data;
 			{
@@ -88,25 +86,9 @@ namespace AskMonaNet
 			return JsonConvert.DeserializeObject<T>(HttpPost(new Uri(url), data));
 		}
 
-		private T CallAuth<T>(string url, AskMonaUser user)
+		internal T PostAuth<T>(string url, AskMonaUser user, Dictionary<string, string> data)
 		{
 			var ak = user.GenerateAuthKey(app_secretkey);
-
-			return Call<T>(url,
-				new Dictionary<string, string>{
-					{"app_id",app_id.ToString()},
-					{"u_id",user.u_id.ToString()},
-					{"nonce",ak.nonce},
-					{"time",ak.time},
-					{"auth_key",ak.auth_key}
-				}
-			);
-		}
-
-		private T PostAuth<T>(string url, AskMonaUser user, Dictionary<string, string> data)
-		{
-			var ak = user.GenerateAuthKey(app_secretkey);
-
 			data.Add("app_id", app_id.ToString());
 			data.Add("u_id", user.u_id.ToString());
 			data.Add("nonce", ak.nonce);
@@ -115,28 +97,29 @@ namespace AskMonaNet
 			return Post<T>(url, data);
 		}
 
-
-		private static readonly DateTime UnixTimeOrigin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+		/// <summary>
+		/// Unixエポック時間を取得します。
+		/// </summary>
+		public static readonly DateTime UnixTimeOrigin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
 
 		/// <summary>
-		/// Unix時間からDateTime型へ変換します。
+		/// Unix時間からDateTime時刻へ変換します。
 		/// </summary>
-		/// <param name="timestamp"></param>
+		/// <param name="unixtime">Unix時間</param>
 		/// <returns></returns>
-		public static DateTime ConvertFromUnixTime(int timestamp)
+		public static DateTime ConvertFromUnixTime(int unixtime)
 		{
-			return UnixTimeOrigin.AddSeconds(timestamp);
+			return UnixTimeOrigin.AddSeconds(unixtime);
 		}
 
 		/// <summary>
-		/// DateTime型からUnix時間へ変換します。
+		/// DateTime時刻からUnix時間へ変換します。
 		/// </summary>
-		/// <param name="date"></param>
+		/// <param name="datetime">DateTime時刻</param>
 		/// <returns></returns>
-
-		public static int ConvertToUnixTimestamp(DateTime date)
+		public static int ConvertToUnixTimestamp(DateTime datetime)
 		{
-			return (int)(date - UnixTimeOrigin).TotalSeconds;
+			return (int)(datetime - UnixTimeOrigin).TotalSeconds;
 		}
 	}
 }
