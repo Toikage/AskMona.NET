@@ -58,7 +58,7 @@ namespace AskMonaNet
 		/// <summary>
 		/// やり取りされたMONA（watanabe単位　1MONAは100,000,000watanabeです）。
 		/// </summary>
-		public string recieve;
+		public decimal recieve;
 		/// <summary>
 		/// お気に入り登録者数。
 		/// </summary>
@@ -121,7 +121,7 @@ namespace AskMonaNet
 		/// <summary>
 		/// やり取りされたMONA（watanabe単位　1MONAは100,000,000watanabeです）。
 		/// </summary>
-		public string recieve;
+		public decimal recieve;
 		/// <summary>
 		/// やり取りされたMONAをレベル分けしたもの。現状、レベルは0から7までの整数値です。
 		/// </summary>
@@ -156,7 +156,7 @@ namespace AskMonaNet
 		/// </summary>
 		favorites,
 		/// <summary>
-		/// やり取りされたMONA順で並べ替えられます
+		/// やり取りされたMONA順
 		/// </summary>
 		recieve
 	}

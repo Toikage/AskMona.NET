@@ -13,7 +13,6 @@ namespace AskMonaNetTest
 		{
 			
 			AskMonaClient am = new AskMonaClient();
-
 			{
 				Console.WriteLine("トピックの一覧を取得します。");
 				Console.ReadKey(true);
