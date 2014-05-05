@@ -13,6 +13,8 @@ http://askmona.org/
 - C# 5.0
 
 ###その他
+Releaseタブよりダウンロードして下さい。
+
 [AskMona 利用規約](http://askmona.org/about#tos)
 
 [このライブラリのWiki](https://github.com/AtKey/AskMonaNet/wiki)
