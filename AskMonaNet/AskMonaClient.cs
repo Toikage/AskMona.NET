@@ -6,48 +6,12 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace AskMonaNet
 {
 	public partial class AskMonaClient
 	{
-		static internal string HttpCall(Uri uri)
-		{
-			WebRequest request = WebRequest.Create(uri);
-
-			request.Method = WebRequestMethods.Http.Get;
-
-			using (WebResponse response = request.GetResponse())
-			using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.ASCII))
-			{
-				return sr.ReadToEnd();
-			}
-		}
-
-
-		static internal string HttpPost(Uri uri, string req)
-		{
-			byte[] data = Encoding.ASCII.GetBytes(req);
-
-			WebRequest request = WebRequest.Create(uri);
-			request.Method = WebRequestMethods.Http.Post;
-
-			request.ContentType = "application/x-www-form-urlencoded";
-
-			request.ContentLength = data.Length;
-
-			using (var s = request.GetRequestStream())
-			{
-				s.Write(data, 0, data.Length);
-			}
-
-			using (WebResponse response = request.GetResponse())
-			using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.ASCII))
-			{
-				return sr.ReadToEnd();
-			}
-		}
-
 		internal T Call<T>(string url, Dictionary<string, string> prm)
 		{
 			UriBuilder ub = new UriBuilder(url);
@@ -64,7 +28,44 @@ namespace AskMonaNet
 				}
 				ub.Query = sb.ToString();
 			}
-			return JsonConvert.DeserializeObject<T>(HttpCall(ub.Uri));
+
+			WebRequest request = WebRequest.Create(ub.Uri);
+
+			request.Method = WebRequestMethods.Http.Get;
+
+			using (WebResponse response = request.GetResponse())
+			using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.ASCII))
+			{
+				return JsonConvert.DeserializeObject<T>(sr.ReadToEnd());
+			}
+		}
+
+		internal async Task<T> CallAsync<T>(string url, Dictionary<string, string> prm)
+		{
+			UriBuilder ub = new UriBuilder(url);
+			{
+				StringBuilder sb = new StringBuilder();
+				bool isFirst = true;
+				foreach (var item in prm)
+				{
+					if (!isFirst) sb.Append("&");
+					else isFirst = false;
+					sb.Append(item.Key);
+					sb.Append('=');
+					sb.Append(WebUtility.UrlEncode(item.Value));
+				}
+				ub.Query = sb.ToString();
+			}
+
+			WebRequest request = WebRequest.Create(ub.Uri);
+
+			request.Method = WebRequestMethods.Http.Get;
+
+			using (WebResponse response = await request.GetResponseAsync())
+			using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.ASCII))
+			{
+				return JsonConvert.DeserializeObject<T>(await sr.ReadToEndAsync());
+			}
 		}
 
 		internal T Post<T>(string url, Dictionary<string, string> prm)
@@ -83,7 +84,64 @@ namespace AskMonaNet
 				}
 				data = sb.ToString();
 			}
-			return JsonConvert.DeserializeObject<T>(HttpPost(new Uri(url), data));
+
+			byte[] bdata = Encoding.ASCII.GetBytes(data);
+
+			WebRequest request = WebRequest.Create(url);
+			request.Method = WebRequestMethods.Http.Post;
+
+			request.ContentType = "application/x-www-form-urlencoded";
+
+			request.ContentLength = data.Length;
+
+			using (var s = request.GetRequestStream())
+			{
+				s.Write(bdata, 0, bdata.Length);
+			}
+
+			using (WebResponse response = request.GetResponse())
+			using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.ASCII))
+			{
+				return JsonConvert.DeserializeObject<T>(sr.ReadToEnd());
+			}
+		}
+
+		internal async Task<T> PostAsync<T>(string url, Dictionary<string, string> prm)
+		{
+			string data;
+			{
+				StringBuilder sb = new StringBuilder();
+				bool isFirst = true;
+				foreach (var item in prm)
+				{
+					if (!isFirst) sb.Append("&");
+					else isFirst = false;
+					sb.Append(item.Key);
+					sb.Append('=');
+					sb.Append(WebUtility.UrlEncode(item.Value));
+				}
+				data = sb.ToString();
+			}
+
+			byte[] bdata = Encoding.ASCII.GetBytes(data);
+
+			WebRequest request = WebRequest.Create(url);
+			request.Method = WebRequestMethods.Http.Post;
+
+			request.ContentType = "application/x-www-form-urlencoded";
+
+			request.ContentLength = data.Length;
+
+			using (var s = await request.GetRequestStreamAsync())
+			{
+				s.Write(bdata, 0, bdata.Length);
+			}
+
+			using (WebResponse response = await request.GetResponseAsync())
+			using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.ASCII))
+			{
+				return JsonConvert.DeserializeObject<T>(await sr.ReadToEndAsync());
+			}
 		}
 
 		internal T PostAuth<T>(string url, AskMonaUser user, Dictionary<string, string> data)
@@ -95,6 +153,17 @@ namespace AskMonaNet
 			data.Add("time", ak.time);
 			data.Add("auth_key", ak.auth_key);
 			return Post<T>(url, data);
+		}
+
+		internal async Task<T> PostAuthAsync<T>(string url, AskMonaUser user, Dictionary<string, string> data)
+		{
+			var ak = user.GenerateAuthKey(app_secretkey);
+			data.Add("app_id", app_id.ToString());
+			data.Add("u_id", user.u_id.ToString());
+			data.Add("nonce", ak.nonce);
+			data.Add("time", ak.time);
+			data.Add("auth_key", ak.auth_key);
+			return await PostAsync<T>(url, data);
 		}
 
 		/// <summary>
