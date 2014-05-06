@@ -59,9 +59,21 @@ namespace AskMonaNet
 		}
 
 		/// <summary>
+		/// 認証コードの書式が正しいかどうかを判定します。
+		/// </summary>
+		/// <param name="authcode">認証コード。</param>
+		/// <returns></returns>
+		static public bool IsAuthCode(string authcode)
+		{
+			if (Regex.IsMatch(authcode, @"""u_id"":(\d*)") && Regex.IsMatch(authcode, @"""secretkey"":""(.*)"""))
+				return true;
+			return false;
+		}
+
+		/// <summary>
 		/// アプリ連携ページから取得された認証コードからユーザー情報のインスタンスを初期化します。
 		/// </summary>
-		/// <param name="authcode"></param>
+		/// <param name="authcode">認証コード。</param>
 		/// <exception cref="FormatException"></exception>
 		/// <returns></returns>
 		static public AskMonaUser CreateFromAuthCode(string authcode)
@@ -88,7 +100,7 @@ namespace AskMonaNet
 		/// <param name="u_id">ユーザーのID。</param>
 		/// <param name="secretkey">シークレットキー。</param>
 		/// <returns></returns>
-		static public AskMonaUser Create(int u_id,string secretkey)
+		static public AskMonaUser Create(int u_id, string secretkey)
 		{
 			return new AskMonaUser(u_id, secretkey);
 		}
